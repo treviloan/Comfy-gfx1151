@@ -1,0 +1,29 @@
+services:
+  comfyui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: comfyui-rocm:local
+    container_name: comfyui-rocm
+    restart: unless-stopped
+    ports:
+      - "8188:8188"
+    # Map AMD GPU devices per AMD ROCm Docker docs
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      # Replace with your host's render/video group IDs:
+      # getent group render -> use that number
+      # getent group video  -> use that number
+      - "130"   # render
+      - "44"    # video
+    environment:
+      HIP_VISIBLE_DEVICES: "0,1"
+      # Add override if needed for your GPU:
+      HSA_OVERRIDE_GFX_VERSION: "11.0.0"
+      # ComfyUI launch arguments
+      COMFYUI_ARGS: "--force-fp32 --fp32-unet --fp32-vae --fp32-text-enc"
+    volumes:
+      # Mount the entire app directory 1:1
+      - ${PWD}/data:/app
