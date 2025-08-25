@@ -1,0 +1,34 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# Docker
+*.pid
+*.seed
+*.bak
+
+# Ignore data directory
+/data
+
+# Keep these tracked
+!/docker-compose.yml
+!/dockerfile
+!/README.md
